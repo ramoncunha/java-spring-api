@@ -18,8 +18,8 @@ public class AnimeService {
     private final Utils utils;
     private final AnimeRepository animeRepository;
 
-    public Page<Anime> listAll(Pageable pageable) {
-        return this.animeRepository.findAll(pageable);
+    public List<Anime> listAll() {
+        return this.animeRepository.findAll();
     }
 
     public List<Anime> findByName(String name) {

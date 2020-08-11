@@ -3,8 +3,7 @@ package academy.devdojo.springboot2.client;
 import academy.devdojo.springboot2.domain.Anime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -32,6 +31,26 @@ public class SpringClient {
         Anime overlordSaved = new RestTemplate().postForObject("http://localhost:8080/animes", overlord, Anime.class);
 
         log.info("Anime created {}", overlordSaved);
+
+        overlordSaved.setName("Steins Gate");
+        ResponseEntity<Void> updatedEntity = new RestTemplate()
+                .exchange("http://localhost:8080/animes", HttpMethod.PUT,
+                        new HttpEntity<>(overlordSaved, createJsonHeader()), Void.class);
+
+        log.info("Entity updated: {}", updatedEntity.getStatusCode());
+
+        ResponseEntity<Void> deletedEntity = new RestTemplate()
+                .exchange("http://localhost:8080/animes/{id}", HttpMethod.DELETE,
+                        null, Void.class, overlordSaved.getId());
+
+        log.info("Entity deleted status: {}", deletedEntity.getStatusCode());
+
+    }
+
+    private static HttpHeaders createJsonHeader() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return httpHeaders;
     }
 
 }

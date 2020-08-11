@@ -12,7 +12,7 @@ import java.util.List;
 public class DevDojoWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) { // Define a quantidade de itens por página na paginação
         PageableHandlerMethodArgumentResolver pageHandler = new PageableHandlerMethodArgumentResolver();
         pageHandler.setFallbackPageable(PageRequest.of(0, 5));
         resolvers.add(pageHandler);

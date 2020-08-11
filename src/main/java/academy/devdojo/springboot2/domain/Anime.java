@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Anime {
 
     @Id
@@ -24,8 +26,5 @@ public class Anime {
     @NotNull
     @NotEmpty(message = "Name of this anime, cannot be empty")
     private String name;
-    @URL
-    @NotNull(message = "Enter a valid URL")
-    private String URL;
 
 }

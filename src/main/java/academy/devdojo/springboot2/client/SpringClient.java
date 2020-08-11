@@ -13,20 +13,25 @@ import java.util.List;
 public class SpringClient {
 
     public static void main(String[] args) {
-        ResponseEntity<Anime> animeResponseEntity = new RestTemplate()
-                .getForEntity("http://localhost:8080/animes/{id}", Anime.class, 2);
+//        ResponseEntity<Anime> animeResponseEntity = new RestTemplate()
+//                .getForEntity("http://localhost:8080/animes/{id}", Anime.class, 2);
+//
+//        log.info("Response Entity {}", animeResponseEntity);
+//
+//        Anime anime = new RestTemplate()
+//                .getForObject("http://localhost:8080/animes/{id}", Anime.class, 2);
 
-        log.info("Response Entity {}", animeResponseEntity);
-
-        Anime anime = new RestTemplate()
-                .getForObject("http://localhost:8080/animes/{id}", Anime.class, 2);
-
-        log.info("Anime {}", anime);
+//        log.info("Anime {}", anime);
 
         ResponseEntity<List<Anime>> exchangeAnimeList = new RestTemplate()
                 .exchange("http://localhost:8080/animes", HttpMethod.GET, null, new ParameterizedTypeReference<List<Anime>>() {});
 
         log.info("Anime list {}", exchangeAnimeList);
+
+        Anime overlord = Anime.builder().name("Overlord").build();
+        Anime overlordSaved = new RestTemplate().postForObject("http://localhost:8080/animes", overlord, Anime.class);
+
+        log.info("Anime created {}", overlordSaved);
     }
 
 }

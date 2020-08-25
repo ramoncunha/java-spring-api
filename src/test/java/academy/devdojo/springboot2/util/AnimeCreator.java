@@ -19,7 +19,7 @@ public class AnimeCreator {
 
     public static Anime createValidUpdatedAnime() {
         return Anime.builder()
-                .name("Tensor Data")
+                .name("Tensor Data 2")
                 .id(1)
                 .build();
     }

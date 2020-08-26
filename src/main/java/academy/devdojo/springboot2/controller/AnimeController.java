@@ -4,18 +4,21 @@ import academy.devdojo.springboot2.domain.Anime;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.Utils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping("animes")
 @RequiredArgsConstructor // construtor para atributos "final"
@@ -30,7 +33,8 @@ public class AnimeController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Anime> findById(@PathVariable int id) { //(@PathVariable("id") int id)
+    public ResponseEntity<Anime> findById(@PathVariable int id, @AuthenticationPrincipal UserDetails userDetails) { //(@PathVariable("id") int id)
+        log.info("User logged in {}", userDetails);
         return ResponseEntity.ok(animeService.findById(id));
     }
 

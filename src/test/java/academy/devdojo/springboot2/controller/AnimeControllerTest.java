@@ -71,7 +71,7 @@ class AnimeControllerTest {
     @DisplayName("findById returns an anime when successful")
     public void findById_ReturnAnime_WhenSuccessful() {
         Integer expectedId = AnimeCreator.createValidAnime().getId();
-        Anime anime = animeController.findById(1).getBody();
+        Anime anime = animeController.findById(1, null).getBody();
 
         Assertions.assertThat(anime).isNotNull();
         Assertions.assertThat(anime.getId()).isNotNull();

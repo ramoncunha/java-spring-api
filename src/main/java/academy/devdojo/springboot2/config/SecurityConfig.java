@@ -1,5 +1,7 @@
 package academy.devdojo.springboot2.config;
 
+import academy.devdojo.springboot2.service.DevDojoUserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,7 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final DevDojoUserService devDojoUserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,15 +36,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        log.info("Testing encoder password {}", passwordEncoder.encode("test"));
-        auth.inMemoryAuthentication()
-            .withUser("devdojo")
-            .password(passwordEncoder.encode("academy"))
-            .roles("USER")
-            .and()
-            .withUser("ramon")
-            .password(passwordEncoder.encode("academy"))
-            .roles("USER", "ADMIN");
+        log.info("Testing encoder password {}", passwordEncoder.encode("academy"));
+//        auth.inMemoryAuthentication()
+//            .withUser("devdojo")
+//            .password(passwordEncoder.encode("academy"))
+//            .roles("USER")
+//            .and()
+//            .withUser("ramon")
+//            .password(passwordEncoder.encode("academy"))
+//            .roles("USER", "ADMIN");
+
+        auth.userDetailsService(devDojoUserService)
+            .passwordEncoder(passwordEncoder);
+
     }
 
 }

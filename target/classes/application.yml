@@ -24,7 +24,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: info, health, metrics, beans
+        include: info, health, metrics, beans, prometheus
   endpoint:
     health:
       show-details: when_authorized

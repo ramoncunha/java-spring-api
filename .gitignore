@@ -13,6 +13,6 @@
 target/
 
 #IntelliJ files
-**/*.iml
+*.iml
 .idea
 **/.gradle

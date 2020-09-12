@@ -21,6 +21,8 @@ This is a training explained by DevDojo channel's on YouTube.
 - On your terminal run `docker-compose up`
 - Create your user on database
 - Execute the application
+- Open Prometheus `http://localhost:9090`
+- Open Grafana `http://localhost:3000`
 - Enjoy!
 
 Created by Ramon Cunha
